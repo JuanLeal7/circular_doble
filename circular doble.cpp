@@ -16,23 +16,28 @@ void borrar();
 void actualizar(nodo*lista,int b){
     bool band = false;
 	nodo *act =new nodo();
-    act = lista;
-    
-    while((act!=NULL)&&(act->nro <=b)){
-
-     if(act->nro==b){
-     	band=true;
-	   }
-	   act = act->sig;
-    } 
-    if(band= true){
-    cout<<"El valor:"<<b<<" esta en la lista\n";
-    cout<<"ingrese el nuevo valor\n";
-    cin>> act->nro;
-    }
-    else{
-	cout<<"El valor:"<<b<<" no esta en la lista\n";
-    }
+    act = primero;
+    int bus=0,enc=0;
+    cout<<"ingrese el valor que quiere modificar\n";
+    cin>>bus;
+    if (primero!=NULL){
+    	do{
+    		if(act->nro==bus){
+    			cout<< "el valor fue encontrado\n";
+    			cout<< "ingrese el nuevo valor\n";
+    			cin>> act->nro;
+    			enc=1;
+    			
+			}
+			act =act->sig;
+		}while(act!=primero&&enc!=1);
+		if(enc==0){
+			cout<< "valor no encontrado\n";
+		}
+	}else{
+		cout<< "lista vacia\n";
+	}
+   
 	
 }
 
@@ -67,8 +72,6 @@ cin>>opc;
 		system("pause");
 		break;
 		case 2:
-		cout<<"digite el valor que desea buscar\n";
-		cin>>nro;
 		buscar(lista,nro);
 		system("pause");	
 		break;
@@ -77,8 +80,6 @@ cin>>opc;
 		system("pause");
 		break;
 		case 4:
-		cout<<"digite el valor que desea actualizar\n";
-		cin>>nro;
 		actualizar(lista,nro);
 		cout<<"lista actualizada\n";
 		system("pause");
@@ -129,60 +130,69 @@ void mostrar(nodo *lista){
 void buscar(nodo*lista,int b){
     bool band = false;
 	nodo *act =new nodo();
-    act = lista;
-    
-    while((act!=NULL)&&(act->nro <=b)){
-
-     if(act->nro==b){
-     	band=true;
+    act = primero;
+    int bus=0;
+    cout <<"ingrese el valor que desea buscar\n "; 
+    cin>> bus;
+   if (act!=NULL)
+   {
+   	do{
+   		if(act->nro==bus){
+   			 cout<<"el valor "<<bus<<" encontrado\n";  
+   			 band=true;
+		   }
+		   act=act->sig;
+	   }while(act!=primero&&band !=true);
+	   if(!band){
+	   cout<<"el valor "<<bus<<"no se encuentra\n";
 	   }
-	   act = act->sig;
-    } 
-    if(band= true){
-    cout<<"El valor:"<<b<<" esta en la lista\n";
-    }
-    else{
-	cout<<"El valor:"<<b<<" no esta en la lista\n";
-    }
+   }
+   else{
+   	cout<<"lsta vacia";
+   }
 	
 }
 
 void borrar(){
- nodo* act=new nodo();
- act=primero;
- nodo*ant=new nodo();
- ant=NULL;
- bool enc=false;
- int bus=0;
- cout <<"ingrese el valor que desea eliminar\n ";
- cin>>bus;
- if(primero!=NULL){
- 	
- 	while(act!=NULL&& enc!=true){
- 		
-		 if(act->nro==bus)
-		 cout<<"el valor "<<bus<<" encontrado\n";
-		 	
-		 	if(act==primero){
-		 		primero =primero->sig;
-		 		primero->ant=NULL;
-		 		
-			 }else if(act==primero){
-			 	ant->sig=NULL;
-			 	ultimo=ant;
-			 	
-			 }else{
-			 	ant->sig=act->sig;
-			 	act->sig->ant=ant;
-			 }
- 			cout<<"valor eliminado\n";
- 			enc=true;
-	 }
-	 ant=act;
-	 act=act->sig;
-    }
-    if(!enc){
-    	cout<<"nodo no encontrado\n";
-	}
-
- }
+ bool band = false;
+	nodo *act =new nodo();
+    act = primero;
+    nodo *ant =new nodo();
+    ant=NULL;
+    int bus=0;
+    cout <<"ingrese el valor que desea buscar\n "; 
+    cin>> bus;
+   if (act!=NULL)
+   {
+   	do{
+   		if(act->nro==bus){
+   			 cout<<"el valor "<<bus<<" encontrado\n";  
+   			 
+   			 if(act==primero){
+   			 	primero=primero->sig;
+   			 	primero->ant=ultimo;
+   			 	ultimo->sig=primero;
+   			 	
+				}else if(act==ultimo){
+					ultimo=ant;
+					ultimo->sig=primero;
+					primero->ant=ultimo;
+				}else{
+					ant->sig =act->sig;
+					act->sig->ant=ant;
+				}
+				cout<<"valor eliminado\n ";
+				band=true;
+		   }
+		   ant=act;
+		   act=act->sig;
+	   }while(act!=primero&&band !=true);
+	   if(!band){
+	   cout<<"el valor "<<bus<<"no se encuentra\n";
+	   }
+   }
+   else{
+   	cout<<"lsta vacia";
+   }
+	
+}
