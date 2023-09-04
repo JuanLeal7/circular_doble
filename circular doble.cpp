@@ -105,7 +105,7 @@ cin>>opc;
    	Nlista->ant=ultimo;
    	Nlista->sig=primero;
    	ultimo=Nlista;
-   	primer->ant=ultimo;
+   	primero->ant=ultimo;
    }
    
 
@@ -115,12 +115,12 @@ void mostrar(nodo *lista){
 	nodo *act =new nodo(); 
     act = primero;
     if(primero!=NULL){
-	
-	  while(act!=NULL){
+	  do{
 	  	cout<<act->nro<<" -> ";
-		act=act->sig;
-	  	
-	  }
+	  	act=act->sig;
+	  }while(act!=primero);
+	  		
+	  
 	}else{
 		cout<<"la lista esta vacia";
 	}
